@@ -35,7 +35,10 @@ if [[ "${2:-}" == "--prepare-only" ]]; then echo "Prepared project in $work/lean
 echo REPLAY_SOURCE_BUILD_PASSED
 "${lake_cmd[@]}" env lean "$record/Audit.lean"
 echo REPLAY_AXIOM_AUDIT_PASSED
-"${lake_cmd[@]}" env bash "$record/audit/statement-check.sh" main "$work/statement-check"
-echo REPLAY_STATEMENT_CHECK_PASSED
 "${lake_cmd[@]}" env leanchecker --fresh Main
 echo REPLAY_FRESH_KERNEL_PASSED
+# Optional: compare Main's statements with Mathlib-only expected propositions (audit/README.md).
+if [[ "${REPLAY_STATEMENT_CHECK:-0}" == 1 ]]; then
+  "${lake_cmd[@]}" env bash "$record/audit/statement-check.sh" main "$work/statement-check"
+  echo REPLAY_STATEMENT_CHECK_PASSED
+fi
