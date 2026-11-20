@@ -250,9 +250,10 @@ The script compares every archive part with its SHA-256 digest, checks the toolc
 
 1. `REPLAY_SOURCE_BUILD_PASSED` means Lake built the module containing the final theorem.
 2. `REPLAY_AXIOM_AUDIT_PASSED` means the five public theorems in `Main` type-checked against their statements, which `Audit.lean` writes out with Mathlib definitions only. The audit rejects any reported axiom beyond propositional extensionality, classical choice, and quotient soundness.
-3. `REPLAY_FRESH_KERNEL_PASSED` means Lean’s checker replayed the declarations imported by `Main` in a fresh environment. It uses the same Lean kernel implementation.
+3. `REPLAY_STATEMENT_CHECK_PASSED` means the types of the five theorems in `Main` matched propositions elaborated in a module that imports only Mathlib, after unfolding the definitions in `Statements`, and the kernel accepted each theorem as a proof of them. See [audit/README.md](audit/README.md).
+4. `REPLAY_FRESH_KERNEL_PASSED` means Lean’s checker replayed the declarations imported by `Main` in a fresh environment. It uses the same Lean kernel implementation.
 
-A completed report should include the exit status, all three outputs, the printed theorem and axioms, and a checksum for the archived transcript. A machine or storage failure leaves the mathematical claim unresolved.
+A completed report should include the exit status, all four outputs, the printed theorem and axioms, and a checksum for the archived transcript. A machine or storage failure leaves the mathematical claim unresolved.
 
 ## Volunteer activity
 

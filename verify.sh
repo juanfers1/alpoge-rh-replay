@@ -35,5 +35,7 @@ if [[ "${2:-}" == "--prepare-only" ]]; then echo "Prepared project in $work/lean
 echo REPLAY_SOURCE_BUILD_PASSED
 "${lake_cmd[@]}" env lean "$record/Audit.lean"
 echo REPLAY_AXIOM_AUDIT_PASSED
+"${lake_cmd[@]}" env bash "$record/audit/statement-check.sh" main "$work/statement-check"
+echo REPLAY_STATEMENT_CHECK_PASSED
 "${lake_cmd[@]}" env leanchecker --fresh Main
 echo REPLAY_FRESH_KERNEL_PASSED
